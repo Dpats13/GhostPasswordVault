@@ -1,0 +1,26 @@
+#Makefile for Ghost Password Vault
+
+#Make environment
+CC=gcc
+CFLAGS=-I. -c -g -Wall -Wno-pointer-sign
+LINKARGS=-g
+LIBS=-lm -L. -lgcrypt
+
+#Suffix rules
+.SUFFIXES: .c .o
+
+.c.o: $(CC) $(CFLAGS) -o $@ $<
+
+#Files
+TARGETS= Ghost_PV
+
+CLIENT_OBJECT_FILES= Ghost_PV.o
+
+#Productions
+all: $(TARGETS)
+
+Ghost_PV: $(CLIENT_OBJECT_FILES) 
+	$(CC) $(LINKARGS) $(CLIENT_OBJECT_FILES) -o $@ $(LIBS)
+
+clean: 
+	rm -f $(TARGETS) *.o
